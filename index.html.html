@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun! 🎉</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fed6e3 0%, #a8c1ef 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            animation: popIn 1s ease-out;
+        }
+
+        h1 {
+            color: #ff4a75;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff4a75, #ff85a2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 15px rgba(255, 74, 117, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 74, 117, 0.6);
+        }
+
+        /* Styling Game */
+        .game-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px dashed #ff4a75;
+            display: none;
+        }
+
+        .game-section h3 {
+            color: #4a75ff;
+            margin-bottom: 10px;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            width: 80px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            text-align: center;
+            margin-right: 10px;
+            outline: none;
+        }
+
+        input[type="number"]:focus {
+            border-color: #4a75ff;
+        }
+
+        #game-message {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Hadiah Rahasia */
+        #secret-reward {
+            display: none;
+            background: #fff0f3;
+            border: 2px solid #ff4a75;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            animation: rainbow 3s infinite alternate;
+        }
+
+        /* Animasi */
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Efek Konfeti Sederhana */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff0;
+            opacity: 0.7;
+            animation: fall 3s linear infinite;
+            top: -10px;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); top: -10px; }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>HAPPY BIRTHDAY! 🎂🎈</h1>
+        <p>HARI INI SPESIAL GA SI BUAT KAMU? SEMOGA SEMUA HARI SELALU SPESIAL YAWWW!✨</p>
+        
+        <button class="btn" onclick="mulaiPerayaan()">Klik Buat Kejutan 🎉</button>
+
+        <div class="game-section" id="game-area">
+            <h3>🎮 Mini Game: Tebak Angka Misteri</h3>
+            <p>Aku memikirkan angka antara <b>1 sampai 100</b>. Bisa tebak angkanya? Tebak dengan benar untuk membuka pesan rahasia!</p>
+            
+            <input type="number" id="guess-input" min="1" max="100" placeholder="?">
+            <button class="btn" style="background: #4a75ff; box-shadow: 0 5px 15px rgba(74, 117, 255, 0.4);" onclick="checkGuess()">Tebak!</button>
+            
+            <p id="game-message"></p>
+
+            <div id="secret-reward">
+                <h2>🎁 Pesan Rahasia Terbuka!</h2>
+                <p><b>"SELAMAT ULANG TAHUN YAAA SEMOGA DIUMUR KAMU YANG SEKARANG TAMBAH DEWASA, TAMBAH DILANCARIN LAGI REZEKINYA SEMOGA APA YANG KAMU INGINKAN DI UMUR MU YANG SEKARANG BISA TERCAPAI SUKSES TERUS OM TAMA😉🎉🎉🎉🎉🎉"</b></p>
+                <p><b>HEHEHEHE MAAF YA KALO GA BERKESAN BANGET PROJECT DADAKAN NIII</b></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate angka acak untuk game (1-10)
+        const targetNumber = Math.floor(Math.random() * 10) + 1;
+        let attempts = 0;
+
+        // Fungsi untuk memicu efek konfeti dan memunculkan game
+        function mulaiPerayaan() {
+            document.getElementById('game-area').style.display = 'block';
+            buatKonfeti();
+            alert("Selamat Ulang Tahun! 🥳 Coba cek ke bawah, ada mini game buat kamu!");
+        }
+
+        // Fungsi membuat efek konfeti jatuh
+        function buatKonfeti() {
+            const warna = ['#ff4a75', '#ff85a2', '#4a75ff', '#ffeb3b', '#4caf50'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = warna[Math.floor(Math.random() * warna.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's'; // antara 2-4 detik
+                confetti.style.opacity = Math.random();
+                document.body.appendChild(confetti);
+
+                // Hapus konfeti setelah animasi selesai agar tidak memberatkan browser
+                setTimeout(() => {
+                    confetti.remove();
+                }, 4000);
+            }
+        }
+
+        // Fungsi Logika Game Tebak Angka
+        function checkGuess() {
+            const inputElement = document.getElementById('guess-input');
+            const messageElement = document.getElementById('game-message');
+            const rewardElement = document.getElementById('secret-reward');
+            const userGuess = parseInt(inputElement.value);
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 10) {
+                messageElement.style.color = 'red';
+                messageElement.innerText = "Masukkan angka yang valid antara 1 sampai 10 ya!";
+                return;
+            }
+
+            attempts++;
+
+            if (userGuess === targetNumber) {
+                messageElement.style.color = 'green';
+                messageElement.innerText = `🎉 HEBAT! Kamu berhasil menebaknya dalam ${attempts} kali percobaan!`;
+                rewardElement.style.display = 'block';
+                buatKonfeti(); // Rayakan lagi dengan konfeti
+            } else if (userGuess < targetNumber) {
+                messageElement.style.color = '#ff9800';
+                messageElement.innerText = "Terlalu KECIL! Coba angka yang lebih besar. 😉";
+            } else {
+                messageElement.style.color = '#ff9800';
+                messageElement.innerText = "Terlalu BESAR! Coba angka yang lebih kecil. 😉";
+            }
+        }
+    </script>
+</body>
+</html>
